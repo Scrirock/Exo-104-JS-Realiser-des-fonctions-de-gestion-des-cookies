@@ -24,6 +24,8 @@ function getCookies() {
 function setCookie(cookieName, cookieValue) {
     // Le cookie doit être valide 2 jours et doit respecter les normes de sécurité contre les failles CSRF.
     // Votre code ici.
+
+    document.cookie = cookieName + " = " + cookieValue + "; path=/; domain=localhost; max-age=" + 86400000*2 + "; samesite=strict";
 }
 
 
@@ -33,14 +35,18 @@ function setCookie(cookieName, cookieValue) {
  */
 function getCookie(cookieName) {
     // Votre code ici.
+    let cookies = document.cookie.split(';');
+
+    for (let i of cookies){
+        if (i.includes(cookieName)){
+            return i.split("=")[1];
+        }
+    }
 }
-
-
-console.log(getCookies());
 
 // FIXME Test de setCookie()
 setCookie('monCookie', 'maValeur');
 console.log(getCookies());
 
 // FIXME test de getCookie(param)
-console.log(getCookies('monCookie'));
+console.log(getCookie('monCookie'));
